@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/jquery-1.6.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                if (sessionStorage.getItem("max") == null) {
+                    alert("Welcome Player");
+                    sessionStorage.setItem("max", 0);
+                } else {
+                    $("#max").html(sessionStorage.getItem("max"));
+                }
+                var totalPoint = 0;
+                var pixelsleft = 0;
+                var pixelstop = 0;
+                moveFruit();
+                var fruitp = $("#fruit");
+                var fruitposition = fruitp.position()
+//                alert(fruitposition.left.toFixed());
+//                alert(fruitposition.top.toFixed());
+                var posx = fruitposition.left.toFixed();
+                var posy = fruitposition.top.toFixed();
+                var kky = "";
+                var speed = 200;
+                $(document).keyup(function(e) {
+                    if (kky == e.which) {
+                    } else {
+                        kky = e.which;
+//                    alert(kky);
+                        if (e.which == 37) {   // left
+//                        var degrees = 0;
+//                        $("#snake").css({'-webkit-transform': 'rotate(' + degrees + 'deg)',
+//                            '-moz-transform': 'rotate(' + degrees + 'deg)',
+//                            '-ms-transform': 'rotate(' + degrees + 'deg)',
+//                            'transform': 'rotate(' + degrees + 'deg)'});
+
+                            (function theLoop(i) {
+                                setTimeout(function() {
+                                    pixelsleft = pixelsleft - 10;
+                                    $("#snake").css('margin-left', pixelsleft);
+                                    p = $("#snakeHead");
+                                    var positin = p.position();
+//                                alert(positin.left.toFixed());
+//                                alert(positin.top.toFixed());
+                                    if (positin.left.toFixed() > 1275 || positin.left.toFixed() < 725 || positin.top.toFixed() >= 755 || positin.top.toFixed() < 203) {
+                                        alert("fail!!! Score: " + totalPoint);
+                                        mx = sessionStorage.getItem("max");
+                                        if (mx < totalPoint) {
+                                            sessionStorage.setItem("max", totalPoint);
+                                            $("#max").html(totalPoint);
+                                        }
+                                        totalPoint = 0;
+                                        location.reload();
+                                        return false;
+                                    }
+//                                alert("Snake Left:"+positin.left.toFixed());
+//                                alert("Snake Top:"+positin.top.toFixed());
+                                    if (posx + 25 >= positin.left.toFixed() && posx - 16 <= positin.left.toFixed() && posy + 16 >= positin.top.toFixed() && posy - 12 <= positin.top.toFixed()) {
+                                        totalPoint = totalPoint + 1;
+//                                    alert(totalPoint);
+                                        $("#score").html(totalPoint);
+//                                    $("#snake").prepend("*");
+                                        speed = speed - 10;
+                                        moveFruit();
+                                    }
+                                    if (--i && kky == 37) {          // If i > 0, keep going
+                                        theLoop(i);       // Call the loop again, and pass it the current value of i
+                                    }
+                                }, speed);
+                            })(50);
+
+                        }
+                        if (e.which == 38) {    // up
+//                        pixelstop = pixelstop - 10;
+//                        $("#snake").css('margin-top', pixelstop);
+//                        var degrees = 90;
+//                        $("#snake").css({'-webkit-transform': 'rotate(' + degrees + 'deg)',
+//                            '-moz-transform': 'rotate(' + degrees + 'deg)',
+//                            '-ms-transform': 'rotate(' + degrees + 'deg)',
+//                            'transform': 'rotate(' + degrees + 'deg)'});
+
+                            (function theLoop(i) {
+                                setTimeout(function() {
+                                    pixelstop = pixelstop - 10;
+                                    $("#snake").css('margin-top', pixelstop);
+                                    p = $("#snakeHead");
+                                    var positin = p.position();
+                                    if (positin.left.toFixed() > 1275 || positin.left.toFixed() < 725 || positin.top.toFixed() >= 755 || positin.top.toFixed() < 203) {
+                                        alert("fail!!! Score: " + totalPoint);
+                                        mx = sessionStorage.getItem("max");
+                                        if (mx < totalPoint) {
+                                            sessionStorage.setItem("max", totalPoint);
+                                        }
+                                        totalPoint = 0;
+                                        $("#score").html(totalPoint);
+                                        location.reload();
+                                        return false;
+                                    }
+//                                alert("Snake Left:"+positin.left.toFixed());
+//                                alert("Snake Top:"+positin.top.toFixed());
+                                    if (posx + 25 >= positin.left.toFixed() && posx - 16 <= positin.left.toFixed() && posy + 16 >= positin.top.toFixed() && posy - 12 <= positin.top.toFixed()) {
+                                        totalPoint = totalPoint + 1;
+//                                    alert(totalPoint);
+                                        $("#score").html(totalPoint);
+                                        speed = speed - 10;
+//                                    $("#snake").prepend("*");
+                                        moveFruit();
+                                    }
+
+                                    if (--i && kky == 38) {          // If i > 0, keep going
+                                        theLoop(i);       // Call the loop again, and pass it the current value of i
+                                    }
+                                }, speed);
+                            })(50);
+                        }
+                        if (e.which == 39) {    // right  
+//                        var degrees = 0;
+//                        $("#snake").css({'-webkit-transform': 'rotate(' + degrees + 'deg)',
+//                            '-moz-transform': 'rotate(' + degrees + 'deg)',
+//                            '-ms-transform': 'rotate(' + degrees + 'deg)',
+//                            'transform': 'rotate(' + degrees + 'deg)'});
+
+                            (function theLoop(i) {
+                                setTimeout(function() {
+                                    pixelsleft = pixelsleft + 10;
+                                    $("#snake").css('margin-left', pixelsleft);
+                                    p = $("#snakeHead");
+                                    var positin = p.position();
+                                    if (positin.left.toFixed() > 1275 || positin.left.toFixed() < 725 || positin.top.toFixed() >= 755 || positin.top.toFixed() < 203) {
+                                        alert("fail!!! Score: " + totalPoint);
+                                        mx = sessionStorage.getItem("max");
+                                        if (mx < totalPoint) {
+                                            sessionStorage.setItem("max", totalPoint);
+                                        }
+                                        totalPoint = 0;
+                                        $("#score").html(totalPoint);
+                                        location.reload();
+                                        return false;
+                                    }
+//                                alert("Snake Left:"+positin.left.toFixed());
+//                                alert("Snake Top:"+positin.top.toFixed());
+                                    if (posx + 25 >= positin.left.toFixed() && posx - 16 <= positin.left.toFixed() && posy + 16 >= positin.top.toFixed() && posy - 12 <= positin.top.toFixed()) {
+                                        totalPoint = totalPoint + 1;
+//                                    alert(totalPoint);
+                                        $("#score").html(totalPoint);
+                                        speed = speed - 10;
+//                                    $("#snake").prepend("*");
+                                        moveFruit();
+                                    }
+                                    if (--i && kky == 39) {          // If i > 0, keep going
+                                        theLoop(i);       // Call the loop again, and pass it the current value of i
+                                    }
+                                }, speed);
+                            })(50);
+                        }
+                        if (e.which == 40) {   // down
+//                        var degrees = 90;
+//                        $("#snake").css({'-webkit-transform': 'rotate(' + degrees + 'deg)',
+//                            '-moz-transform': 'rotate(' + degrees + 'deg)',
+//                            '-ms-transform': 'rotate(' + degrees + 'deg)',
+//                            'transform': 'rotate(' + degrees + 'deg)'});
+
+                            (function theLoop(i) {
+                                setTimeout(function() {
+                                    pixelstop = pixelstop + 10;
+                                    $("#snake").css('margin-top', pixelstop);
+                                    p = $("#snakeHead");
+                                    var positin = p.position();
+                                    if (positin.left.toFixed() >= 1275 || positin.left.toFixed() < 725 || positin.top.toFixed() >= 755 || positin.top.toFixed() < 203) {
+                                        alert("fail!!! Score: " + totalPoint);
+                                        mx = sessionStorage.getItem("max");
+                                        if (mx < totalPoint) {
+                                            sessionStorage.setItem("max", totalPoint);
+                                        }
+                                        totalPoint = 0;
+                                        $("#score").html(totalPoint);
+                                        location.reload();
+                                        return false;
+                                    }
+//                                alert("Snake Left:"+positin.left.toFixed());
+//                                alert("Snake Top:"+positin.top.toFixed());
+                                    if (posx + 25 >= positin.left.toFixed() && posx - 16 <= positin.left.toFixed() && posy + 16 >= positin.top.toFixed() && posy - 12 <= positin.top.toFixed()) {
+                                        totalPoint = totalPoint + 1;
+//                                    alert(totalPoint);
+                                        $("#score").html(totalPoint);
+                                        speed = speed - 10;
+//                                    $("#snake").prepend("*");
+                                        moveFruit();
+                                    }
+                                    if (--i && kky == 40) {          // If i > 0, keep going
+                                        theLoop(i);       // Call the loop again, and pass it the current value of i
+                                    }
+                                }, speed);
+                            })(50);
+                        }
+
+                        e.preventDefault();
+                    }
+                });
+                function moveFruit() {
+//                    alert("clickk");
+                    posx = 0;
+                    posy = 0;
+                    while (posx < 738 || posy < 208) {
+                        posx = (Math.random() * ($('#boundary').width() + 700)).toFixed();
+                        posy = (Math.random() * ($('#boundary').height() + 190)).toFixed();
+                    }
+//                    alert("Fruit left:"+posx);
+//                    alert("Fruit top:"+posy);
+                    $("#fruit").css({
+                        'position': 'absolute',
+                        'left': posx + 'px',
+                        'top': posy + 'px'
+                    }).appendTo('body');
+                }
+
+                $("#rot").click(function() {
+//                    alert("alert");
+//                    var degrees = 90;
+//                    $("#rot").css({'-webkit-transform': 'rotate(' + degrees + 'deg)',
+//                        '-moz-transform': 'rotate(' + degrees + 'deg)',
+//                        '-ms-transform': 'rotate(' + degrees + 'deg)',
+//                        'transform': 'rotate(' + degrees + 'deg)'});
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div style="height: 550px; width: 550px; margin-left: 725px;margin-top: 205px; border-style: dashed" id="boundary">
+            <div style="font-size: 30px;" id="fruit">*</div>
+            <div id="snake" style="font-size: 30px;"><span id="snakeHead" style="color: red">*</span> </div>
+        </div>  
+
+    <center><h1>Score: <div id="score"></div></h1></center>
+    <br><br>
+    <center><h1>Highest Score :<div id="max"></div></h1></center>
+    <!--<div id="rot" style="width: 80px; height: 50px; background-color: #FF5E99">test</div>-->
+</body>
+</html>
